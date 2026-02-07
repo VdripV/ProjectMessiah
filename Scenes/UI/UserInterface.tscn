@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://cdjydqmnsl8gx"]
+
+[ext_resource type="Script" uid="uid://c0w212676xjmb" path="res://Scripts/reticle.gd" id="1_co62r"]
+[ext_resource type="Theme" uid="uid://uyo1ywubt3u4" path="res://Scenes/UI/themes/debug.tres" id="2_1gv2k"]
+[ext_resource type="Script" uid="uid://bufuqpciq0rh4" path="res://Scripts/debug_panel.gd" id="3_t0p4i"]
+
+[node name="UserInterface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Reticle" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_co62r")
+
+[node name="DebugPanel" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 216.0
+offset_bottom = 60.0
+theme = ExtResource("2_1gv2k")
+script = ExtResource("3_t0p4i")
+
+[node name="MarginContainer" type="MarginContainer" parent="DebugPanel"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugPanel/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
