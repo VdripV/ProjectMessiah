@@ -5,18 +5,23 @@ var timer = 0.0
 
 @onready var camera: Camera3D = $CameraController/Camera3D
 @onready var camera_controller: Node3D = $CameraController
+@onready var sub_viewport_camera: Camera3D = %SubViewportCamera
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var animation_hands: AnimationPlayer = $CameraController/Armpist/AnimationPlayer
 
 @export var TILT_LOWER_LIMIT := deg_to_rad(-90.0)
 @export var TILT_UPPER_LIMIT := deg_to_rad(90.0)
+@export var ACCELERATION := 0.1
+@export var ACCELERATION_SPRINT := 0.2
+@export var DECELERATION := 0.7
 @export var HORIZONTAL_SENS := 0.05
 @export var VERTICAL_SENS := 0.2
-@export var CROUCH_SHAPECAST : Node3D
 
-const SPEED = 3.0
-const JUMP_VELOCITY = 5.0
-const CROUCH_SPEED = 4.0
+@export var SPEED_SPRINT := 5.0
+@export var SPEED_DEFAULT := 4.0
+@export var SPEED_CROUCH := 3.0
+@export var JUMP_VELOCITY := 5.0
+
+@export var CROUCH_SHAPECAST : Node3D
 
 var _tilt_input : float
 var _rotation_input : float
@@ -26,6 +31,14 @@ var _player_rotation : Vector3
 var _camera_rotation : Vector3
 
 var is_crouching : bool = false
+var is_sprinting : bool = false
+var current_speed : float = SPEED_DEFAULT
+var current_acceleration : float = ACCELERATION
+
+var _speed : float = SPEED_DEFAULT:
+	set(value):
+		_speed = value
+		current_speed = value
 
 func _ready() -> void:
 	global.player = self
@@ -65,7 +78,7 @@ func _update_camera(delta) -> void:
 	_tilt_input = 0.0
 
 func _physics_process(delta: float) -> void:
-	
+	_speed = SPEED_DEFAULT
 	global.debug.add_property("Movement Speed", velocity.length(), 1)
 	
 	timer += delta
@@ -75,36 +88,44 @@ func _physics_process(delta: float) -> void:
 	
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-		if animation_hands.current_animation != "Armature|FPS_Pistol_Idle":
-			animation_hands.play("Armature|FPS_Pistol_Idle")
+		#if animation_hands.current_animation != "Armature|FPS_Pistol_Idle":
+			#animation_hands.play("Armature|FPS_Pistol_Idle")
 
-	if Input.is_action_just_pressed("jump") and is_on_floor() and !is_crouching:
-		velocity.y = JUMP_VELOCITY
+	#if Input.is_action_just_pressed("jump") and is_on_floor() and !is_crouching:
+		#velocity.y = JUMP_VELOCITY
 			
-	if Input.is_action_just_pressed("crouch") and is_on_floor():
-		toggle_crouch()
+	#if Input.is_action_just_pressed("crouch") and is_on_floor():
+		#toggle_crouch()
 
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	var direction := (global_transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
-		if animation_hands.current_animation != "Armature|FPS_Pistol_Walk":
-			animation_hands.speed_scale = 0.5
-			animation_hands.play("Armature|FPS_Pistol_Walk")
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
+		#if animation_hands.current_animation != "Armature|FPS_Pistol_Walk":
+			#animation_hands.speed_scale = 0.5
+			#animation_hands.play("Armature|FPS_Pistol_Walk")
+		if is_sprinting:
+			velocity.x = lerp(velocity.x, direction.x * SPEED_SPRINT, ACCELERATION_SPRINT)
+			velocity.z = lerp(velocity.z, direction.z * SPEED_SPRINT, ACCELERATION_SPRINT)
+		else:
+			velocity.x = lerp(velocity.x, direction.x * SPEED_DEFAULT, ACCELERATION)
+			velocity.z = lerp(velocity.z, direction.z * SPEED_DEFAULT, ACCELERATION)
+		#velocity.x = lerp(velocity.x, direction.x * current_speed, current_acceleration)
+		#velocity.z = lerp(velocity.z, direction.z * current_speed, current_acceleration)
 	else:
-		if animation_hands.current_animation != "Armature|FPS_Pistol_Idle":
-			animation_hands.play("Armature|FPS_Pistol_Idle")
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+		#if animation_hands.current_animation != "Armature|FPS_Pistol_Idle":
+			#animation_hands.play("Armature|FPS_Pistol_Idle")
+		var vel = Vector2(velocity.x,velocity.z)
+		var temp = move_toward(vel.length(), 0, DECELERATION)
+		velocity.x = vel.normalized().x * temp
+		velocity.z = vel.normalized().y * temp
 
 	move_and_slide()
 	_update_camera(delta)
 
-func toggle_crouch():
-	if !is_crouching:
-		animation_player.play("crouching", -1, CROUCH_SPEED)
-		is_crouching = !is_crouching
-	elif is_crouching and CROUCH_SHAPECAST.is_colliding() == false:
-		animation_player.play("crouching", -1, -CROUCH_SPEED, true)
-		is_crouching = !is_crouching
+#func toggle_crouch():
+	#if !is_crouching:
+		#animation_player.play("crouching", -1, CROUCH_SPEED)
+		#is_crouching = !is_crouching
+	#elif is_crouching and CROUCH_SHAPECAST.is_colliding() == false:
+		#animation_player.play("crouching", -1, -CROUCH_SPEED, true)
+		#is_crouching = !is_crouching

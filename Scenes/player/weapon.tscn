@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dx7pd3t1o562w"]
+
+[ext_resource type="Script" uid="uid://dn46f1d45v3l5" path="res://Scripts/init_weapon.gd" id="1_mb3pj"]
+[ext_resource type="ArrayMesh" uid="uid://cv16smwn0hfar" path="res://Source/player/sci-fi/sci-fi_gun/blue_blaster_mesh.tres" id="2_ll7my"]
+
+[node name="Weapon" type="Node3D"]
+script = ExtResource("1_mb3pj")
+
+[node name="WeaponMesh" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, 0.9999999, 0, -0.9999999, -4.3711385e-08, 0, 0, 0)
+mesh = ExtResource("2_ll7my")
+skeleton = NodePath("")

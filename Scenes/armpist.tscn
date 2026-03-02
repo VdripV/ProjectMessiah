@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://in111hd6h0q1"]
-
-[ext_resource type="PackedScene" uid="uid://cydefqftthax3" path="res://Meshes/player/hands/Armpist.fbx" id="1_py6am"]
-
-[node name="Armpist" instance=ExtResource("1_py6am")]
