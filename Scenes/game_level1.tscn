@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://chj44jvej4sey"]
+[gd_scene format=3 uid="uid://chj44jvej4sey"]
 
 [ext_resource type="PackedScene" uid="uid://c2w26wk082p3b" path="res://Scenes/player/player.tscn" id="1_w8mqs"]
 [ext_resource type="PackedScene" uid="uid://ehpjusjflilo" path="res://Scenes/HL_map.tscn" id="2_kgl6t"]
@@ -19,56 +19,59 @@ sky = SubResource("Sky_wqkje")
 tonemap_mode = 2
 glow_enabled = true
 
-[node name="GameLevel" type="Node3D"]
+[node name="GameLevel" type="Node3D" unique_id=488985321]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1435426876]
 transform = Transform3D(-0.8660254, -0.43301278, 0.24999999, 0.2902734, -0.02829656, 0.9565253, -0.40711355, 0.9009435, 0.15019763, 0, 18.66514, 0)
 light_energy = 1.25
 light_specular = 0.0
 shadow_enabled = true
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1113101580]
 environment = SubResource("Environment_edxrx")
 
-[node name="player" parent="." instance=ExtResource("1_w8mqs")]
+[node name="player" parent="." unique_id=1417482859 instance=ExtResource("1_w8mqs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15425193, 0)
 
-[node name="Sketchfab_Scene" parent="." instance=ExtResource("2_kgl6t")]
+[node name="Weapon" parent="player/CameraController/Camera3D" index="0"]
+transform = Transform3D(2.750157e-06, 0, -0.9, 0, 0.9, 0, 0.9, 0, 2.750157e-06, 0.12099995, -0.1609999, 0)
+
+[node name="Sketchfab_Scene" parent="." unique_id=955249206 instance=ExtResource("2_kgl6t")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
-[node name="Lighting" type="Node3D" parent="."]
+[node name="Lighting" type="Node3D" parent="." unique_id=1886678433]
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Lighting"]
+[node name="OmniLight3D" type="OmniLight3D" parent="Lighting" unique_id=1857120124]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.553008, -4.0092025)
 light_energy = 2.085
 omni_range = 7.4966273
 
-[node name="OmniLight3D4" type="OmniLight3D" parent="Lighting"]
+[node name="OmniLight3D4" type="OmniLight3D" parent="Lighting" unique_id=1599472924]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.936742, 4.1851687, -14.136507)
 light_energy = 2.085
 omni_range = 7.4966273
 
-[node name="OmniLight3D5" type="OmniLight3D" parent="Lighting"]
+[node name="OmniLight3D5" type="OmniLight3D" parent="Lighting" unique_id=816119571]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.595088, 4.1851687, -13.7765465)
 light_energy = 2.085
 omni_range = 7.4966273
 
-[node name="OmniLight3D6" type="OmniLight3D" parent="Lighting"]
+[node name="OmniLight3D6" type="OmniLight3D" parent="Lighting" unique_id=1310823426]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.36155498, 4.1851687, -11.80783)
 light_energy = 2.085
 omni_range = 7.4966273
 
-[node name="OmniLight3D7" type="OmniLight3D" parent="Lighting"]
+[node name="OmniLight3D7" type="OmniLight3D" parent="Lighting" unique_id=1403785388]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25828195, 4.1851687, -11.80783)
 light_energy = 2.085
 omni_range = 7.4966273
 
-[node name="OmniLight3D3" type="OmniLight3D" parent="Lighting"]
+[node name="OmniLight3D3" type="OmniLight3D" parent="Lighting" unique_id=1762946484]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9583087, 3.553008, -4.0092025)
 light_energy = 2.085
 omni_range = 7.4966273
 
-[node name="OmniLight3D2" type="OmniLight3D" parent="Lighting"]
+[node name="OmniLight3D2" type="OmniLight3D" parent="Lighting" unique_id=1478673937]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.553008, 2.6203039)
 light_energy = 2.085
 omni_range = 7.4966273

@@ -23,11 +23,6 @@ func update(delta: float) -> void:
 	if is_uncrouching:
 		return
 		
-	if global.player.velocity.length() > 0.0 and global.player.is_on_floor():
-		ANIMATION_arms.play('Hands|Hands|Walk_2')
-	else:
-		ANIMATION_arms.play('Hands|Hands|Idle')
-		
 	if Input.is_action_just_pressed('crouch'):
 		try_uncrouch()
 		

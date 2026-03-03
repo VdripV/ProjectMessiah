@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Weapons" load_steps=3 format=3 uid="uid://diwcsu24ynpe"]
+[gd_resource type="Resource" script_class="Weapons" format=3 uid="uid://diwcsu24ynpe"]
 
 [ext_resource type="ArrayMesh" uid="uid://cv16smwn0hfar" path="res://Source/player/sci-fi/sci-fi_gun/blue_blaster_mesh.tres" id="1_c48sy"]
 [ext_resource type="Script" uid="uid://7q4sfrvygpso" path="res://Scripts/weapons.gd" id="1_ymp2l"]

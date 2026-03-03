@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://o5lujy70ndjf"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://o5lujy70ndjf"]
 
 [ext_resource type="Texture2D" uid="uid://kmtr3ghucclj" path="res://Source/player/sci-fi/sci-fi_gun/blue_blasterGD_Image_0.png" id="1_8cch1"]
 [ext_resource type="Texture2D" uid="uid://bjf77bmhn0k82" path="res://Source/player/sci-fi/sci-fi_gun/blue_blasterGD_Image_1.png" id="2_swk45"]
@@ -52,7 +52,7 @@ void vertex() {
 }
 
 void fragment() {
-	DEPTH = FRAGCOORD.z * 1.99;
+	DEPTH = FRAGCOORD.z * 2.99;
 	vec2 base_uv = UV;
 
 	vec4 albedo_tex = texture(texture_albedo, base_uv);

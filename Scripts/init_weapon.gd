@@ -32,7 +32,7 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		mouse_movement = event.relative
 	if event.is_action_pressed('weapon1'):
-		WEAPON_TYPE = load("res://ImportModels/player/sci-fi/sci-fi_gun/blaster.tres")
+		WEAPON_TYPE = load("res://Source/player/sci-fi/sci-fi_gun/blaster.tres")
 		
 
 func _process(_delta):
