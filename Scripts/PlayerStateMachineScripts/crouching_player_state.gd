@@ -4,7 +4,6 @@ extends State
 
 @export var CROUCH_SPEED: float = 4.0
 @export var ANIMATION: AnimationPlayer
-@export var ANIMATION_arms: AnimationPlayer
 
 @onready var CROUCH_SHAPECAST: ShapeCast3D = $"../../ShapeCast3D"
 
@@ -28,7 +27,7 @@ func exit() -> void:
 func update(delta: float) -> void:
 	if is_uncrouching:
 		pass
-		
+	
 	var is_moving = global.player.velocity.length() > 0
 	if is_moving and not was_moving:
 		global.player.footstep_crouch.play()

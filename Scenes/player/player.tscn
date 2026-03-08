@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://1ie0di5f6vuy" path="res://Scripts/player.gd" id="1_v0iea"]
 [ext_resource type="Script" uid="uid://w4it45653ml4" path="res://Scripts/camera_controller.gd" id="2_cvnsp"]
 [ext_resource type="PackedScene" uid="uid://cdjydqmnsl8gx" path="res://Scenes/UI/UserInterface.tscn" id="3_6t5aa"]
+[ext_resource type="Resource" uid="uid://diwcsu24ynpe" path="res://Source/player/sci-fi/sci-fi_gun/blaster.tres" id="4_p8lfk"]
 [ext_resource type="PackedScene" uid="uid://dx7pd3t1o562w" path="res://Scenes/player/weapon.tscn" id="4_qqcod"]
 [ext_resource type="Script" uid="uid://0rdmeq3bq4mo" path="res://Scripts/PlayerStateMachineScripts/state_machine.gd" id="5_x3wgy"]
 [ext_resource type="Script" uid="uid://c3rjuf33iuy36" path="res://Scripts/PlayerStateMachineScripts/idle_player_state.gd" id="6_3smsa"]
@@ -339,32 +340,6 @@ _data = {
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_cvnsp"]
 
-[sub_resource type="GDScript" id="GDScript_h4iuc"]
-script/source = "class_name RunningPlayerState
-
-extends State
-
-@export var ANIMATION : AnimationPlayer
-
-@export var RUNNING_SPEED: float = 7.0
-
-func enter() -> void:
-	ANIMATION.play(\"Hands|Hands|Run_2\", -1, 1)
-
-func update(delta: float) -> void:
-	if global.player.velocity.length() > 0.0 and global.player.is_on_floor():
-		if global.player.is_crouching:
-			transition.emit(\"CrouchingPlayerState\")
-		else:
-			transition.emit(\"WalkingPlayerState\")
-	
-	if Input.is_action_just_pressed(\"jump\") and global.player.is_on_floor() and !global.player.is_crouching:
-		transition.emit(\"JumpingPlayerState\")
-	
-	if Input.is_action_just_pressed(\"crouch\") and global.player.is_on_floor():
-		transition.emit(\"CrouchingPlayerState\")
-"
-
 [node name="player" type="CharacterBody3D" unique_id=787582251 node_paths=PackedStringArray("CROUCH_SHAPECAST")]
 script = ExtResource("1_v0iea")
 VERTICAL_SENS = 0.07
@@ -389,7 +364,8 @@ cull_mask = 524287
 fov = 85.0
 
 [node name="Weapon" parent="CameraController/Camera3D" unique_id=1053635418 instance=ExtResource("4_qqcod")]
-transform = Transform3D(-3.934025e-08, 0, -0.9, 0, 0.9, 0, 0.9, 0, -3.934025e-08, 0.121, -0.161, 0.169)
+transform = Transform3D(-3.934025e-08, 0, -0.9, 0, 0.9, 0, 0.9, 0, -3.934025e-08, 0.13, -0.16, 0.15)
+WEAPON_TYPE = ExtResource("4_p8lfk")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1373306180]
 libraries/ = SubResource("AnimationLibrary_vgqql")
@@ -449,10 +425,6 @@ ANIMATION = NodePath("../../AnimationPlayer")
 
 [node name="CrouchingPlayerState" type="Node" parent="PlayerStateMachine" unique_id=484282975 node_paths=PackedStringArray("ANIMATION")]
 script = ExtResource("15_h4iuc")
-ANIMATION = NodePath("../../AnimationPlayer")
-
-[node name="RunningPlayerState" type="Node" parent="PlayerStateMachine" unique_id=903472050 node_paths=PackedStringArray("ANIMATION")]
-script = SubResource("GDScript_h4iuc")
 ANIMATION = NodePath("../../AnimationPlayer")
 
 [node name="FootstepWalk" type="AudioStreamPlayer3D" parent="." unique_id=9717411]
