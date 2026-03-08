@@ -11,6 +11,7 @@ extends State
 func enter() -> void:
 	global.player.velocity.y = JUMP_VELOCITY
 	ANIMATION.play('JumpStart_')
+	global.player.jump_sound.play()
 	
 func physics_update(delta: float) -> void:
 	global.player.velocity += global.player.get_gravity() * delta

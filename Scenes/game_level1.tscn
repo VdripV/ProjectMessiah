@@ -34,7 +34,11 @@ environment = SubResource("Environment_edxrx")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15425193, 0)
 
 [node name="Weapon" parent="player/CameraController/Camera3D" index="0"]
-transform = Transform3D(2.750157e-06, 0, -0.9, 0, 0.9, 0, 0.9, 0, 2.750157e-06, 0.12099995, -0.1609999, 0)
+transform = Transform3D(2.8574455e-06, 0, -0.9, 0, 0.9, 0, 0.9, 0, 2.8574455e-06, 0.12099995, -0.1609999, 0)
+
+[node name="FootstepPlayer" type="AudioStreamPlayer3D" parent="player" unique_id=335239116]
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="player/FootstepPlayer" unique_id=877383563]
 
 [node name="Sketchfab_Scene" parent="." unique_id=955249206 instance=ExtResource("2_kgl6t")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)

@@ -8,6 +8,11 @@ var timer = 0.0
 @onready var sub_viewport_camera: Camera3D = %SubViewportCamera
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
+@onready var footstep_walk: AudioStreamPlayer3D = $FootstepWalk
+@onready var footstep_sprint: AudioStreamPlayer3D = $FootstepSprint
+@onready var footstep_crouch: AudioStreamPlayer3D = $FootstepCrouch
+@onready var jump_sound: AudioStreamPlayer3D = $Jump
+
 @export var TILT_LOWER_LIMIT := deg_to_rad(-90.0)
 @export var TILT_UPPER_LIMIT := deg_to_rad(90.0)
 @export var ACCELERATION := 0.1
@@ -46,6 +51,11 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 	CROUCH_SHAPECAST.add_exception($".")
+	
+	footstep_walk.stream = preload("res://audio/walk_Grass.wav")
+	footstep_sprint.stream = preload("res://audio/sprint_Grass.wav")
+	footstep_crouch.stream = preload("res://audio/crouch_Grass.wav")
+	jump_sound.stream = preload("res://audio/jump_Grass.wav")
 
 func _input(event: InputEvent):
 	if Input.is_action_just_pressed("toggle_mouse"):
@@ -88,32 +98,18 @@ func _physics_process(delta: float) -> void:
 	
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-		#if animation_hands.current_animation != "Armature|FPS_Pistol_Idle":
-			#animation_hands.play("Armature|FPS_Pistol_Idle")
 
-	#if Input.is_action_just_pressed("jump") and is_on_floor() and !is_crouching:
-		#velocity.y = JUMP_VELOCITY
-			
-	#if Input.is_action_just_pressed("crouch") and is_on_floor():
-		#toggle_crouch()
 
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	var direction := (global_transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
-		#if animation_hands.current_animation != "Armature|FPS_Pistol_Walk":
-			#animation_hands.speed_scale = 0.5
-			#animation_hands.play("Armature|FPS_Pistol_Walk")
 		if is_sprinting:
 			velocity.x = lerp(velocity.x, direction.x * SPEED_SPRINT, ACCELERATION_SPRINT)
 			velocity.z = lerp(velocity.z, direction.z * SPEED_SPRINT, ACCELERATION_SPRINT)
 		else:
 			velocity.x = lerp(velocity.x, direction.x * SPEED_DEFAULT, ACCELERATION)
 			velocity.z = lerp(velocity.z, direction.z * SPEED_DEFAULT, ACCELERATION)
-		#velocity.x = lerp(velocity.x, direction.x * current_speed, current_acceleration)
-		#velocity.z = lerp(velocity.z, direction.z * current_speed, current_acceleration)
 	else:
-		#if animation_hands.current_animation != "Armature|FPS_Pistol_Idle":
-			#animation_hands.play("Armature|FPS_Pistol_Idle")
 		var vel = Vector2(velocity.x,velocity.z)
 		var temp = move_toward(vel.length(), 0, DECELERATION)
 		velocity.x = vel.normalized().x * temp
@@ -121,11 +117,4 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	_update_camera(delta)
-
-#func toggle_crouch():
-	#if !is_crouching:
-		#animation_player.play("crouching", -1, CROUCH_SPEED)
-		#is_crouching = !is_crouching
-	#elif is_crouching and CROUCH_SHAPECAST.is_colliding() == false:
-		#animation_player.play("crouching", -1, -CROUCH_SPEED, true)
-		#is_crouching = !is_crouching
+	

@@ -10,6 +10,7 @@ func enter() -> void:
 		ANIMATION.pause()
 	else:
 		ANIMATION.pause()
+		
 
 func update(delta: float) -> void:
 	if global.player.velocity.length() > 0.0 and global.player.is_on_floor():

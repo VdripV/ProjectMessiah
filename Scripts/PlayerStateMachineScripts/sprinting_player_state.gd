@@ -4,18 +4,22 @@ extends State
 
 @export var ANIMATION : AnimationPlayer
 @export var TOP_ANIM_SPEED : float = 1.0
+var was_moving: bool = false
 
 func enter() -> void:
 	ANIMATION.play('Sprinting', -1, 1)
 	global.player._speed = global.player.SPEED_SPRINT
 	global.player.current_acceleration = global.player.ACCELERATION_SPRINT
 	global.player.is_sprinting = true
+	global.player.footstep_sprint.play()
 
 func exit() -> void:
 	global.player.is_sprinting = false
+	global.player.footstep_sprint.stop()
 
 func update(delta) -> void:
 	set_animation_speed(global.player.velocity.length())
+	
 	if global.player.velocity.length() == 0.0:
 		transition.emit("IdlePlayerState")
 	

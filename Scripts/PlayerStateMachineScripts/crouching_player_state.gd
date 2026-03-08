@@ -10,19 +10,32 @@ extends State
 
 var is_uncrouching: bool = false
 
+var was_moving: bool = false
+
 func enter() -> void:
 	is_uncrouching = false
 	global.player.is_crouching = true
 	ANIMATION.play("crouching", -1, CROUCH_SPEED)
 	await ANIMATION.animation_finished
+	was_moving = global.player.velocity.length() > 0
+	if was_moving:
+		global.player.footstep_crouch.play()
 
 func exit() -> void:
 	global.player.is_crouching = false
+	global.player.footstep_crouch.stop()
 	
 func update(delta: float) -> void:
 	if is_uncrouching:
-		return
+		pass
 		
+	var is_moving = global.player.velocity.length() > 0
+	if is_moving and not was_moving:
+		global.player.footstep_crouch.play()
+	elif not is_moving and was_moving:
+		global.player.footstep_crouch.stop()
+	was_moving = is_moving	
+
 	if Input.is_action_just_pressed('crouch'):
 		try_uncrouch()
 		

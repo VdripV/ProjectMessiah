@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://c2w26wk082p3b"]
+[gd_scene format=3 uid="uid://c2w26wk082p3b"]
 
 [ext_resource type="Script" uid="uid://1ie0di5f6vuy" path="res://Scripts/player.gd" id="1_v0iea"]
 [ext_resource type="Script" uid="uid://w4it45653ml4" path="res://Scripts/camera_controller.gd" id="2_cvnsp"]
@@ -365,40 +365,38 @@ func update(delta: float) -> void:
 		transition.emit(\"CrouchingPlayerState\")
 "
 
-[node name="player" type="CharacterBody3D" node_paths=PackedStringArray("CROUCH_SHAPECAST")]
+[node name="player" type="CharacterBody3D" unique_id=787582251 node_paths=PackedStringArray("CROUCH_SHAPECAST")]
 script = ExtResource("1_v0iea")
 VERTICAL_SENS = 0.07
 CROUCH_SHAPECAST = NodePath("ShapeCast3D")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1874012547]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_f60y1")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D" unique_id=1966351514]
 visible = false
 mesh = SubResource("CapsuleMesh_v0iea")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_cvnsp")
 
-[node name="CameraController" type="Node3D" parent="."]
+[node name="CameraController" type="Node3D" parent="." unique_id=1045817810]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.67, -0.16172573)
 script = ExtResource("2_cvnsp")
 
-[node name="Camera3D" type="Camera3D" parent="CameraController"]
+[node name="Camera3D" type="Camera3D" parent="CameraController" unique_id=248252064]
 cull_mask = 524287
 fov = 85.0
 
-[node name="Weapon" parent="CameraController/Camera3D" instance=ExtResource("4_qqcod")]
+[node name="Weapon" parent="CameraController/Camera3D" unique_id=1053635418 instance=ExtResource("4_qqcod")]
 transform = Transform3D(-3.934025e-08, 0, -0.9, 0, 0.9, 0, 0.9, 0, -3.934025e-08, 0.121, -0.161, 0.169)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_vgqql")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1373306180]
+libraries/ = SubResource("AnimationLibrary_vgqql")
 
-[node name="UserInterface" parent="." instance=ExtResource("3_6t5aa")]
+[node name="UserInterface" parent="." unique_id=1141320128 instance=ExtResource("3_6t5aa")]
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="UserInterface"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="UserInterface" unique_id=799511650]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -408,53 +406,61 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="UserInterface/SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="UserInterface/SubViewportContainer" unique_id=554659044]
 transparent_bg = true
 handle_input_locally = false
 positional_shadow_atlas_size = 4096
 size = Vector2i(1280, 720)
 render_target_update_mode = 0
 
-[node name="SubViewportCamera" type="Camera3D" parent="UserInterface/SubViewportContainer/SubViewport"]
+[node name="SubViewportCamera" type="Camera3D" parent="UserInterface/SubViewportContainer/SubViewport" unique_id=1839613696]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.67, -0.162)
 visible = false
 cull_mask = 524288
 fov = 85.0
 
-[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
+[node name="ShapeCast3D" type="ShapeCast3D" parent="." unique_id=1905533878]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 shape = SubResource("SphereShape3D_cvnsp")
 target_position = Vector3(0, 0.5, 0)
 debug_shape_custom_color = Color(0.25092968, 0.66328895, 1.92523e-07, 1)
 
-[node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("CURRENT_STATE")]
+[node name="PlayerStateMachine" type="Node" parent="." unique_id=424170907 node_paths=PackedStringArray("CURRENT_STATE")]
 script = ExtResource("5_x3wgy")
 CURRENT_STATE = NodePath("IdlePlayerState")
 
-[node name="IdlePlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("ANIMATION")]
+[node name="IdlePlayerState" type="Node" parent="PlayerStateMachine" unique_id=1105379612 node_paths=PackedStringArray("ANIMATION")]
 script = ExtResource("6_3smsa")
 ANIMATION = NodePath("../../AnimationPlayer")
 
-[node name="WalkingPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("ANIMATION")]
+[node name="WalkingPlayerState" type="Node" parent="PlayerStateMachine" unique_id=1778313124 node_paths=PackedStringArray("ANIMATION")]
 script = ExtResource("7_8erm5")
 ANIMATION = NodePath("../../AnimationPlayer")
 
-[node name="SprintingPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("ANIMATION")]
+[node name="SprintingPlayerState" type="Node" parent="PlayerStateMachine" unique_id=871348342 node_paths=PackedStringArray("ANIMATION")]
 script = ExtResource("8_8erm5")
 ANIMATION = NodePath("../../AnimationPlayer")
 metadata/_custom_type_script = "uid://bjt52ahqvto7l"
 
-[node name="JumpingPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("ANIMATION")]
+[node name="JumpingPlayerState" type="Node" parent="PlayerStateMachine" unique_id=305343069 node_paths=PackedStringArray("ANIMATION")]
 script = ExtResource("9_f1ek2")
 ANIMATION = NodePath("../../AnimationPlayer")
 
-[node name="CrouchingPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("ANIMATION")]
+[node name="CrouchingPlayerState" type="Node" parent="PlayerStateMachine" unique_id=484282975 node_paths=PackedStringArray("ANIMATION")]
 script = ExtResource("15_h4iuc")
 ANIMATION = NodePath("../../AnimationPlayer")
 
-[node name="RunningPlayerState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("ANIMATION")]
+[node name="RunningPlayerState" type="Node" parent="PlayerStateMachine" unique_id=903472050 node_paths=PackedStringArray("ANIMATION")]
 script = SubResource("GDScript_h4iuc")
 ANIMATION = NodePath("../../AnimationPlayer")
+
+[node name="FootstepWalk" type="AudioStreamPlayer3D" parent="." unique_id=9717411]
+
+[node name="FootstepSprint" type="AudioStreamPlayer3D" parent="." unique_id=687391973]
+
+[node name="FootstepCrouch" type="AudioStreamPlayer3D" parent="." unique_id=1624349178]
+
+[node name="Jump" type="AudioStreamPlayer3D" parent="." unique_id=1956832626]
 
 [editable path="UserInterface"]
