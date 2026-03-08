@@ -6,5 +6,7 @@
 [resource]
 script = ExtResource("1_ymp2l")
 name = &"blaster"
+position = Vector3(0.13, -0.16, 0.15)
+rotation = Vector3(0, -90, 0)
 mesh = ExtResource("1_c48sy")
 damage_amount = 27.0

@@ -5,7 +5,6 @@ extends State
 @export var ANIMATION : AnimationPlayer
 @export var TOP_ANIM_SPEED: float = 1.6
 
-var was_moving: bool = false
 
 func enter() -> void:
 	ANIMATION.play("Walking", -1, 1)
