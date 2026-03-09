@@ -1,0 +1,59 @@
+[gd_scene load_steps=10 format=3 uid="uid://800dliuyhuu2"]
+
+[ext_resource type="PackedScene" uid="uid://c2w26wk082p3b" path="res://Scenes/player/player.tscn" id="1_k5f4k"]
+[ext_resource type="PackedScene" uid="uid://cickxckduv0g6" path="res://Scenes/test_level.tscn" id="2_6phgx"]
+[ext_resource type="PackedScene" uid="uid://dw0afa6tbly40" path="res://Source/funny/shiba/shiba.tscn" id="3_6phgx"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_81xng"]
+sky_top_color = Color(0.4744972, 0.50951236, 0.77050966, 1)
+sky_horizon_color = Color(0.2729294, 0.28545427, 0.2708934, 1)
+sky_curve = 0.12183695
+ground_bottom_color = Color(0.104342274, 0.089373864, 0.07791833, 1)
+ground_horizon_color = Color(0.24332646, 0.2881285, 0.3344252, 1)
+
+[sub_resource type="Sky" id="Sky_wqkje"]
+sky_material = SubResource("ProceduralSkyMaterial_81xng")
+
+[sub_resource type="Environment" id="Environment_0f350"]
+background_mode = 2
+sky = SubResource("Sky_wqkje")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_k5f4k"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6phgx"]
+albedo_color = Color(1, 0.3137255, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_81xng"]
+
+[node name="Level" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.24999999, 0.2902734, -0.02829656, 0.9565253, -0.40711355, 0.9009435, 0.15019763, 0, 18.66514, 0)
+light_energy = 1.25
+light_specular = 0.0
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0f350")
+
+[node name="player" parent="." instance=ExtResource("1_k5f4k")]
+
+[node name="test_level" parent="." instance=ExtResource("2_6phgx")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(5.765, 0, 0, 0, 0.48, 0, 0, 0, 4.48, -6.112, 2, 4.016)
+mesh = SubResource("BoxMesh_k5f4k")
+surface_material_override/0 = SubResource("StandardMaterial3D_6phgx")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_81xng")
+
+[node name="shiba" parent="." instance=ExtResource("3_6phgx")]
+transform = Transform3D(1.4399165, 0, -1.3952298, 0, 2.005, 0, 1.3952298, 0, 1.4399165, 12.200058, 5.9159026, -13.957922)
+
+[editable path="player"]
+[editable path="player/UserInterface"]
