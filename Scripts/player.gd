@@ -21,6 +21,7 @@ var timer = 0.0
 @export var HORIZONTAL_SENS := 0.05
 @export var VERTICAL_SENS := 0.2
 
+
 @export var SPEED_SPRINT := 5.0
 @export var SPEED_DEFAULT := 4.0
 @export var SPEED_CROUCH := 3.0
