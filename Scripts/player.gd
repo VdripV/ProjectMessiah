@@ -69,8 +69,8 @@ func _input(event: InputEvent):
 		_tilt_input = -event.relative.y
 		_rotation_input = -event.relative.x
 	
-	if Input.is_action_just_pressed("quit"):
-		get_tree().quit()
+	if Input.is_action_just_pressed("menu"):
+		get_tree().change_scene_to_file("res://Scenes/menu.tscn")
 
 func _update_camera(delta) -> void:
 	_mouse_rotation.x += _tilt_input * delta * VERTICAL_SENS
