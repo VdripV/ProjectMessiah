@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://chj44jvej4sey"]
 
 [ext_resource type="PackedScene" uid="uid://c2w26wk082p3b" path="res://Scenes/player/player.tscn" id="1_w8mqs"]
+[ext_resource type="PackedScene" uid="uid://cg4j7ljydgi4n" path="res://Scenes/hud.tscn" id="2_sat3w"]
 [ext_resource type="PackedScene" uid="uid://53c7wqiy8yld" path="res://Scenes/prototype_level/level.tscn" id="2_w8mqs"]
+[ext_resource type="Script" uid="uid://7ceobokiyy56" path="res://Scenes/hud.gd" id="3_ie7lr"]
 [ext_resource type="PackedScene" uid="uid://d2web4rd6vkud" path="res://Scenes/enemy/enemy.tscn" id="3_kgl6t"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mrwnk"]
@@ -41,6 +43,45 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12180674, 3.904636)
 [node name="FootstepPlayer" type="AudioStreamPlayer3D" parent="player" unique_id=335239116]
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="player/FootstepPlayer" unique_id=877383563]
+
+[node name="HUD" parent="player" unique_id=1047017672 instance=ExtResource("2_sat3w")]
+script = ExtResource("3_ie7lr")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="player/HUD" unique_id=315432030]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -111.0
+offset_top = 25.0
+offset_right = -31.0
+offset_bottom = 227.0
+grow_horizontal = 0
+size_flags_vertical = 4
+
+[node name="Health" type="Label" parent="player/HUD/VBoxContainer" unique_id=1983962942]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Health"
+
+[node name="HealthBar" type="ProgressBar" parent="player/HUD/VBoxContainer" unique_id=1258919335]
+layout_mode = 2
+
+[node name="Armor" type="Label" parent="player/HUD/VBoxContainer" unique_id=1021027424]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Armor"
+
+[node name="ArmorBar" type="ProgressBar" parent="player/HUD/VBoxContainer" unique_id=1276110417]
+layout_mode = 2
+
+[node name="Ammo" type="Label" parent="player/HUD/VBoxContainer" unique_id=1785801189]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Ammo"
+
+[node name="AmmoLabel" type="Label" parent="player/HUD/VBoxContainer" unique_id=1305328419]
+layout_mode = 2
+horizontal_alignment = 1
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=298232029]
 navigation_mesh = SubResource("NavigationMesh_rflgi")
