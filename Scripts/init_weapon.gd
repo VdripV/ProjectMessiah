@@ -8,7 +8,7 @@ extends Node3D
 		if Engine.is_editor_hint():
 			load_weapon()
 			
-@onready var weapon_mesh: MeshInstance3D = %WeaponMesh
+@onready var weapon_mesh: MeshInstance3D = $WeaponMesh
 
 @export_category("weapon sway")
 @export var sway_min : Vector2 = Vector2(-10.0, -10.0)
@@ -33,7 +33,16 @@ func _input(event: InputEvent) -> void:
 		mouse_movement = event.relative
 	if event.is_action_pressed('weapon1'):
 		WEAPON_TYPE = load("res://Source/player/sci-fi/sci-fi_gun/blaster.tres")
-		
+		print("Load weapon1")
+		load_weapon()
+		initial_position = position
+		initial_rotation = rotation_degrees
+	if event.is_action_pressed('weapon2'):
+		WEAPON_TYPE = load("res://Source/player/sci-fi/sci-fi_gun2/black_gun_res.tres")
+		print("Load weapon2")
+		load_weapon()
+		initial_position = position
+		initial_rotation = rotation_degrees
 
 func _process(_delta):
 	# In editor: update every frame so inspector changes are reflected

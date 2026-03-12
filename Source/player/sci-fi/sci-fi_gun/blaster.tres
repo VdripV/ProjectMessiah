@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="Weapons" format=3 uid="uid://diwcsu24ynpe"]
 
-[ext_resource type="ArrayMesh" uid="uid://cv16smwn0hfar" path="res://Source/player/sci-fi/sci-fi_gun/blue_blaster_mesh.tres" id="1_c48sy"]
+[ext_resource type="ArrayMesh" uid="uid://d4gtyk743r0gm" path="res://Source/player/sci-fi/sci-fi_gun/blaster_mesh.tres" id="1_v7nro"]
 [ext_resource type="Script" uid="uid://7q4sfrvygpso" path="res://Scripts/weapons.gd" id="1_ymp2l"]
 
 [resource]
 script = ExtResource("1_ymp2l")
 name = &"blaster"
-position = Vector3(0.13, -0.16, 0.15)
-rotation = Vector3(0, -90, 0)
-mesh = ExtResource("1_c48sy")
+position = Vector3(0.14, -0.18, 0.15)
+rotation = Vector3(-90, -90.06, 0)
+mesh = ExtResource("1_v7nro")
 damage_amount = 27.0

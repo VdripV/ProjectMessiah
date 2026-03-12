@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://r87vvaxswibe"
-path="res://.godot/imported/blue_blasterGD.glb-3b19a531d956230320d2d180ff1fd4e3.scn"
+uid="uid://duom1goa17a3s"
+path="res://.godot/imported/sci-fi_gun.glb-bd3cc22143912673adc20aabd0875b29.scn"
 
 [deps]
 
-source_file="res://Source/player/sci-fi/sci-fi_gun/blue_blasterGD.glb"
-dest_files=["res://.godot/imported/blue_blasterGD.glb-3b19a531d956230320d2d180ff1fd4e3.scn"]
+source_file="res://Source/player/sci-fi/sci-fi_gun2/sci-fi_gun.glb"
+dest_files=["res://.godot/imported/sci-fi_gun.glb-bd3cc22143912673adc20aabd0875b29.scn"]
 
 [params]
 
@@ -17,7 +17,7 @@ nodes/root_type=""
 nodes/root_name=""
 nodes/root_script=null
 nodes/apply_root_scale=true
-nodes/root_scale=1.0
+nodes/root_scale=0.25
 nodes/import_as_skeleton_bones=false
 nodes/use_name_suffixes=true
 nodes/use_node_type_suffixes=true
@@ -39,14 +39,19 @@ materials/extract_format=0
 materials/extract_path=""
 _subresources={
 "meshes": {
-"blue_blasterGD_Cube_006_low_Gun_0": {
+"Sketchfab_Scene_sci_fi_gun_lambert1_0": {
 "generate/lightmap_uv": 0,
 "generate/lods": 0,
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 20.0,
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://Source/player/sci-fi/sci-fi_gun/blaster_mesh.tres",
-"save_to_file/path": "uid://d4gtyk743r0gm"
+"save_to_file/fallback_path": "res://Source/player/sci-fi/sci-fi_gun2/black_gun.tres",
+"save_to_file/path": "uid://b8ji52s1p5qj4"
+}
+},
+"nodes": {
+"PATH:Sketchfab_model/sci-fi gun_fbx/RootNode/sci_fi_gun/sci_fi_gun_lambert1_0": {
+"mesh_instance/cast_shadow": 0
 }
 }
 }

@@ -25,3 +25,6 @@ func update(delta: float) -> void:
 	if Input.is_action_just_pressed("crouch") and global.player.is_on_floor():
 		transition.emit("CrouchingPlayerState")
 	
+	if Input.is_action_pressed('attack'):
+		transition.emit('AttackingPlayerState')
+	

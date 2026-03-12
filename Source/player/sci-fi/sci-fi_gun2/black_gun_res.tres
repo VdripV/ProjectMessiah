@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Weapons" format=3 uid="uid://da8am6iufr7id"]
+
+[ext_resource type="ArrayMesh" uid="uid://b8ji52s1p5qj4" path="res://Source/player/sci-fi/sci-fi_gun2/black_gun.tres" id="1_fuig0"]
+[ext_resource type="Script" uid="uid://7q4sfrvygpso" path="res://Scripts/weapons.gd" id="2_s0qqj"]
+
+[resource]
+script = ExtResource("2_s0qqj")
+name = &"black_gun"
+position = Vector3(0.15, -0.43, -0.25)
+rotation = Vector3(0, 90, 0)
+mesh = ExtResource("1_fuig0")
+damage_amount = 35.0
