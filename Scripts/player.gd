@@ -29,6 +29,18 @@ var timer = 0.0
 
 @export var CROUCH_SHAPECAST : Node3D
 
+@onready var hud = $HUD
+signal health_changed(current: float, max_value: float)
+signal armor_changed(current: float, max_value: float)
+signal ammo_changed(current: int, max: int)
+
+var health: float = 100.0
+var max_health: float = 100.0
+var armor: float = 0
+var max_armor: float = 100.0
+var ammo: int = 30
+var max_ammo: int = 30
+
 var _tilt_input : float
 var _rotation_input : float
 var _mouse_input : bool = false
@@ -52,6 +64,14 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 	CROUCH_SHAPECAST.add_exception($".")
+	
+	hud.update_health(health, max_health)
+	hud.update_armor(armor, max_armor)
+	hud.update_ammo(ammo, max_ammo)
+	
+	emit_health_signal()
+	emit_armor_signal()
+	emit_ammo_signal()
 	
 	footstep_walk.stream = preload("res://audio/walk_Grass.wav")
 	footstep_sprint.stream = preload("res://audio/sprint_Grass.wav")
@@ -117,7 +137,18 @@ func _physics_process(delta: float) -> void:
 		var temp = move_toward(vel.length(), 0, DECELERATION)
 		velocity.x = vel.normalized().x * temp
 		velocity.z = vel.normalized().y * temp
-
+		
 	move_and_slide()
 	_update_camera(delta)
+		
+func emit_health_signal():
+	health_changed.emit(health, max_health)
+
+func emit_armor_signal():
+	armor_changed.emit(armor, max_armor)
+
+func emit_ammo_signal():
+	ammo_changed.emit(ammo, max_ammo)
+
+
 	
