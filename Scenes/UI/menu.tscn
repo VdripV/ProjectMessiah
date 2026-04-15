@@ -15,49 +15,62 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_1rerr")
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=601978437]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1176765295]
+
+[node name="MainMenu" type="PanelContainer" parent="CanvasLayer" unique_id=1547559386]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 479.0
+offset_top = 366.0
+offset_right = -477.0
+offset_bottom = -370.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=71468393]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MainMenu" unique_id=2124612268]
 layout_mode = 2
-theme_override_constants/separation = 90
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=913681972]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MainMenu/MarginContainer" unique_id=1537924708]
 layout_mode = 2
-theme_override_font_sizes/font_size = 266
-text = "Prototype"
-horizontal_alignment = 1
+theme_override_constants/separation = 15
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1525234580]
+[node name="Label" type="Label" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer" unique_id=103293142]
 layout_mode = 2
-theme_override_constants/separation = 35
+size_flags_horizontal = 4
+text = "Main menu"
 
-[node name="Play" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=2034222916]
+[node name="Play" type="Button" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer" unique_id=1322593436]
 layout_mode = 2
-theme_override_font_sizes/font_size = 120
 text = "Play"
 
-[node name="Options" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=1191425742]
+[node name="Options" type="Button" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer" unique_id=1553705802]
 layout_mode = 2
-theme_override_font_sizes/font_size = 120
 text = "Options"
 
-[node name="Exit" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=1747276376]
+[node name="Exit" type="Button" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer" unique_id=1418401448]
 layout_mode = 2
-theme_override_font_sizes/font_size = 120
 text = "Exit"
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
+[node name="Host" type="Button" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer" unique_id=1173385548]
+layout_mode = 2
+text = "Host"
+
+[node name="Join" type="Button" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer" unique_id=583857287]
+layout_mode = 2
+text = "Join"
+
+[node name="AddressEntry" type="LineEdit" parent="CanvasLayer/MainMenu/MarginContainer/VBoxContainer" unique_id=336175615]
+layout_mode = 2
+placeholder_text = "Enter address to join here"
+alignment = 1
+
+[connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/Join" to="." method="_on_join_pressed"]
