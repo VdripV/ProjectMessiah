@@ -28,6 +28,7 @@ func update(delta) -> void:
 	
 	if Input.is_action_just_pressed("crouch") and global.player.is_on_floor():
 		transition.emit("CrouchingPlayerState")
+	
 		
 func set_animation_speed(spd) -> void:
 	var alpha = remap(spd, 0.0, global.player._speed, 0.0, 1.0)

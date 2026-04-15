@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Weapon_Resource" format=3 uid="uid://7dhn7807h7x1"]
+
+[ext_resource type="PackedScene" uid="uid://8wolti2rkt2q" path="res://Scenes/world_objects/Spawnable_Weapons/blaster_d.tscn" id="1_nkhub"]
+[ext_resource type="Script" uid="uid://chb7ydncy2n24" path="res://Scenes/player/weapon_resource.gd" id="1_vnnit"]
+
+[resource]
+script = ExtResource("1_vnnit")
+Weapon_Name = "blasterD"
+Activate_Anim = "blasterD Activate"
+Deactivate_Anim = "blasterD Deactivate"
+Shoot_Anim = "blasterD Shoot"
+Reload_Anim = "blasterD Reload"
+Out_Of_Ammo_Anim = "blasterD OOA"
+Current_Ammo = 30
+Reserve_Ammo = 60
+Magazine = 30
+Max_Ammo = 60
+Auto_Fire = true
+Weapon_Range = 2000
+Damage = 1
+Type = 1
+Weapon_Drop = ExtResource("1_nkhub")
+metadata/_custom_type_script = "uid://chb7ydncy2n24"

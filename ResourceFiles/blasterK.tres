@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="Weapon_Resource" format=3 uid="uid://ci7hm8251osqd"]
+
+[ext_resource type="PackedScene" uid="uid://bhnowwtmmhwb3" path="res://Scenes/player/bulletN.tscn" id="1_qpi6q"]
+[ext_resource type="Script" uid="uid://chb7ydncy2n24" path="res://Scenes/player/weapon_resource.gd" id="2_4cj4s"]
+[ext_resource type="PackedScene" uid="uid://bxwjpayjtdd2g" path="res://Scenes/world_objects/Spawnable_Weapons/blaster_k.tscn" id="2_27exu"]
+
+[resource]
+script = ExtResource("2_4cj4s")
+Weapon_Name = "blasterK"
+Activate_Anim = "blasterK Activate"
+Deactivate_Anim = "blasterK Deactivate"
+Shoot_Anim = "blasterK Shoot"
+Reload_Anim = "blasterK Reload"
+Out_Of_Ammo_Anim = "blasterK OOA"
+Current_Ammo = 20
+Reserve_Ammo = 60
+Magazine = 20
+Max_Ammo = 60
+Auto_Fire = true
+Weapon_Range = 2000
+Damage = 1
+Type = 1
+Projectile_To_Load = ExtResource("1_qpi6q")
+Projectile_Velocity = 100
+Weapon_Drop = ExtResource("2_27exu")
+metadata/_custom_type_script = "uid://chb7ydncy2n24"

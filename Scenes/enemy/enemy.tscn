@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://d2web4rd6vkud"]
 
 [ext_resource type="Texture2D" uid="uid://drgrdj305yf5n" path="res://Source/enemies/mutant_skeletonZombie_body_diffuse.png" id="1_is6lh"]
-[ext_resource type="Script" uid="uid://dhqtp4q6csl85" path="res://Scripts/enemy.gd" id="1_y8yvo"]
+[ext_resource type="Script" uid="uid://dhqtp4q6csl85" path="res://Scenes/enemy/enemy.gd" id="1_y8yvo"]
 [ext_resource type="Texture2D" uid="uid://54ytt10utupi" path="res://Source/enemies/mutant_skeletonZombie_glow.png" id="2_y8yvo"]
 [ext_resource type="Texture2D" uid="uid://dspp35wyxqrbk" path="res://Source/enemies/mutant_skeletonZombie_normal.png" id="3_upoaa"]
 [ext_resource type="Texture2D" uid="uid://ddpijmww8lesd" path="res://Source/enemies/mutant_skeletonZombie_diffuse.png" id="4_uc4ws"]
@@ -3615,7 +3615,7 @@ _data = {
 &"t-pose": SubResource("Animation_fjkvc")
 }
 
-[node name="enemy" type="CharacterBody3D" unique_id=1748185559]
+[node name="enemy" type="CharacterBody3D" unique_id=1748185559 groups=["Target"]]
 script = ExtResource("1_y8yvo")
 
 [node name="Armature" type="Node3D" parent="." unique_id=160083838]
