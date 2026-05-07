@@ -1,39 +1,58 @@
-class_name SprintingPlayerState
+class_name DashingPlayerState
 
 extends State
 
 @export var ANIMATION : AnimationPlayer
-@export var TOP_ANIM_SPEED : float = 1.0
-var was_moving: bool = false
+@export var DASH_SPEED : float = 20.0
+@export var DASH_DURATION : float = 0.2
+@export var DASH_COOLDOWN : float = 2.0
+
+var dash_direction : Vector3
+var dash_timer : float = 0.0
+var can_dash : bool = true
+var is_dashing : bool = false
 
 func enter() -> void:
-	ANIMATION.play('Sprinting', -1, 1)
-	global.player._speed = global.player.SPEED_SPRINT
-	global.player.current_acceleration = global.player.ACCELERATION_SPRINT
-	global.player.is_sprinting = true
-	global.player.footstep_sprint.play()
+	# Сохраняем направление движения или взгляд игрока
+	if global.player.velocity.length() > 0:
+		dash_direction = global.player.velocity.normalized()
+	else:
+		dash_direction = -global.player.transform.basis.z
+	
+	# Устанавливаем скорость рывка
+	global.player.velocity = dash_direction * DASH_SPEED
+	global.player.velocity.y = 0  # обнуляем вертикальную скорость для горизонтального рывка
+	
+	dash_timer = DASH_DURATION
+	can_dash = false
+	is_dashing = true
+	
+	# Звук рывка (добавьте звук в global.player)
+	#if global.player.has_method("play_dash_sound"):
+		#global.player.play_dash_sound()
 
 func exit() -> void:
-	global.player.is_sprinting = false
-	global.player.footstep_sprint.stop()
+	is_dashing = false
+	# Запускаем таймер кулдауна
+	await get_tree().create_timer(DASH_COOLDOWN).timeout
+	can_dash = true
 
-func update(delta) -> void:
-	set_animation_speed(global.player.velocity.length())
+func update(delta: float) -> void:
+	dash_timer -= delta
 	
-	if global.player.velocity.length() == 0.0:
-		transition.emit("IdlePlayerState")
-	
-	if Input.is_action_just_pressed("jump") and global.player.is_on_floor() and !global.player.is_crouching:
-		transition.emit("JumpingPlayerState")
-	
-	if Input.is_action_just_pressed("crouch") and global.player.is_on_floor():
-		transition.emit("CrouchingPlayerState")
-	
-		
-func set_animation_speed(spd) -> void:
-	var alpha = remap(spd, 0.0, global.player._speed, 0.0, 1.0)
-	ANIMATION.speed_scale = lerp(0.0, TOP_ANIM_SPEED, alpha)
+	if dash_timer <= 0 and is_dashing:
+		# Рывок закончен
+		if global.player.velocity.length() > 0:
+			transition.emit("WalkingPlayerState")
+		else:
+			transition.emit("IdlePlayerState")
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_released("sprint"):
-		transition.emit("WalkingPlayerState")
+func physics_update(delta: float) -> void:
+	if not is_dashing:
+		return
+	# Применяем гравитацию во время рывка
+	global.player.velocity += global.player.get_gravity() * delta
+	
+	if global.player.is_on_floor() and dash_timer <= 0:
+		# Если мы на земле после рывка
+		pass

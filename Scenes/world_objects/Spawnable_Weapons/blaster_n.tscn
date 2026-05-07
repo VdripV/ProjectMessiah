@@ -155,7 +155,7 @@ points = PackedVector3Array(-0.010003913, -0.15375, -0.15504892, -0.04000196, 0.
 
 [node name="blasterN" type="RigidBody3D" unique_id=375512202]
 collision_layer = 8
-collision_mask = 13
+collision_mask = 9
 script = ExtResource("1_83l0p")
 weapon_name = "blasterN"
 current_ammo = 10

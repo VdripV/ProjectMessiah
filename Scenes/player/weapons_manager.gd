@@ -7,6 +7,7 @@ signal Update_Weapon_Stack
 
 @onready var animation_player: AnimationPlayer = $FPS_Rig/AnimationPlayer
 @onready var Bullet_Point: Marker3D = $FPS_Rig/Bullet_Point
+@onready var Gun_Raycast: RayCast3D = $FPS_Rig/RayCast3D
 
 
 var Debug_Bullet = preload("res://Scenes/player/bullet_debug.tscn")
@@ -93,7 +94,7 @@ func shoot():
 				HITSCAN:
 					Hit_Scan_Collision(Camera_Collision)
 				PROJECTILE:
-					Launch_Projectile(Camera_Collision)
+					Launch_Projectile()
 	else:
 		reload()
 
@@ -146,15 +147,12 @@ func Hit_Scan_Damage(Collider, Direction, Position):
 	if Collider.is_in_group("Target") and Collider.has_method("Hit_Successful"):
 		Collider.Hit_Successful(Current_Weapon.Damage, Direction, Position)
 
-#big problem (need to fix later)
-func Launch_Projectile(Point: Vector3):
-	var Direction = (Point - Bullet_Point.get_global_transform().origin).normalized()
+func Launch_Projectile():
 	var Projectile = Current_Weapon.Projectile_To_Load.instantiate()
-	Projectile.position = Bullet_Point.global_position
-	Bullet_Point.add_child(Projectile)
-	Projectile.look_at(Point)
+	Projectile.position = Gun_Raycast.global_position
+	Projectile.transform.basis = Gun_Raycast.global_transform.basis
+	Gun_Raycast.add_child(Projectile)
 	Projectile.Damage = Current_Weapon.Damage
-	Projectile.set_linear_velocity(Direction*Current_Weapon.Projectile_Velocity)
 
 
 func _on_pick_up_detection_body_entered(body: Node3D) -> void:

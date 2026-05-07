@@ -3,6 +3,8 @@ extends CharacterBody3D
 const TIMER_LIMIT = 2.0
 var timer = 0.0
 
+var Health = 100.0
+
 @onready var camera: Camera3D = $CameraController/Camera3D
 @onready var camera_controller: Node3D = $CameraController
 @onready var sub_viewport_camera: Camera3D = %SubViewportCamera
@@ -22,17 +24,12 @@ var timer = 0.0
 @export var VERTICAL_SENS := 0.2
 
 
-@export var SPEED_SPRINT := 5.0
-@export var SPEED_DEFAULT := 4.0
+@export var SPEED_SPRINT := 9.0
+@export var SPEED_DEFAULT := 7.0
 @export var SPEED_CROUCH := 3.0
 @export var JUMP_VELOCITY := 5.0
 
 @export var CROUCH_SHAPECAST : Node3D
-
-#@onready var hud = $HUD
-#signal health_changed(current: float, max_value: float)
-#signal armor_changed(current: float, max_value: float)
-#signal ammo_changed(current: int, max: int)
 
 var health: float = 100.0
 var max_health: float = 100.0
@@ -64,14 +61,6 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 	CROUCH_SHAPECAST.add_exception($".")
-	
-	#hud.update_health(health, max_health)
-	#hud.update_armor(armor, max_armor)
-	#hud.update_ammo(ammo, max_ammo)
-	#
-	#emit_health_signal()
-	#emit_armor_signal()
-	#emit_ammo_signal()
 	
 	footstep_walk.stream = preload("res://audio/walk_Grass.wav")
 	footstep_sprint.stream = preload("res://audio/sprint_Grass.wav")
@@ -114,24 +103,14 @@ func _physics_process(delta: float) -> void:
 	_speed = SPEED_DEFAULT
 	global.debug.add_property("Movement Speed", velocity.length(), 1)
 	
-	timer += delta
-	if timer > TIMER_LIMIT:
-		timer = 0.0
-		print("fps: " + str(Engine.get_frames_per_second()))
-	
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-
 
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	var direction := (global_transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
-		if is_sprinting:
-			velocity.x = lerp(velocity.x, direction.x * SPEED_SPRINT, ACCELERATION_SPRINT)
-			velocity.z = lerp(velocity.z, direction.z * SPEED_SPRINT, ACCELERATION_SPRINT)
-		else:
-			velocity.x = lerp(velocity.x, direction.x * SPEED_DEFAULT, ACCELERATION)
-			velocity.z = lerp(velocity.z, direction.z * SPEED_DEFAULT, ACCELERATION)
+		velocity.x = lerp(velocity.x, direction.x * SPEED_DEFAULT, ACCELERATION)
+		velocity.z = lerp(velocity.z, direction.z * SPEED_DEFAULT, ACCELERATION)
 	else:
 		var vel = Vector2(velocity.x,velocity.z)
 		var temp = move_toward(vel.length(), 0, DECELERATION)
@@ -142,3 +121,13 @@ func _physics_process(delta: float) -> void:
 	_update_camera(delta)
 
 	
+
+
+func _on_jump_booster_detection_body_entered(body: Node3D) -> void:
+	if body.is_in_group("JumpBooster"):
+		velocity.y = JUMP_VELOCITY * 3
+
+func hit(Damage):
+	if Health > 0:
+		Health -= Damage
+	print(Health)

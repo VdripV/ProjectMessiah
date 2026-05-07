@@ -18,3 +18,9 @@ func physics_update(delta: float) -> void:
 	if global.player.is_on_floor():
 		ANIMATION.play('JumpEnd_')
 		transition.emit("IdlePlayerState")
+	
+	if Input.is_action_just_pressed("sprint"):  # Теперь это активация рывка
+		# Проверяем, можно ли использовать рывок
+		var dashing_state = get_node("..").states.get("DashingPlayerState")
+		if dashing_state and dashing_state.can_dash:
+			transition.emit("DashingPlayerState")

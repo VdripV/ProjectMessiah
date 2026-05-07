@@ -5,6 +5,8 @@ extends State
 @export var ANIMATION : AnimationPlayer
 @export var TOP_ANIM_SPEED: float = 1.6
 
+@onready var dash_state: DashingPlayerState = $"../DashingPlayerState"
+
 
 func enter() -> void:
 	ANIMATION.play("Walking", -1, 1)
@@ -32,8 +34,8 @@ func update(delta: float) -> void:
 		transition.emit("JumpingPlayerState")
 	if Input.is_action_just_pressed("crouch") and global.player.is_on_floor():
 		transition.emit("CrouchingPlayerState")
-	if Input.is_action_pressed("sprint") and global.player.is_on_floor():
-		transition.emit("SprintingPlayerState")
+	if Input.is_action_just_pressed("sprint") and dash_state.can_dash:
+		transition.emit("DashingPlayerState")
 		
 func set_animation_speed(spd):
 	var alpha = remap(spd, 0.0, global.player._speed, 0.0, 1.0)

@@ -4,9 +4,10 @@ extends CharacterBody3D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
-const SPEED = 3.0
-const ATTACK_RANGE = 2.5
+const SPEED = 5.5
+const ATTACK_RANGE = 3.0
 const DETECTION_RANGE = 20.0
+var Damage = 10
 
 enum STATE {
 	IDLE,
@@ -15,7 +16,7 @@ enum STATE {
 	DEATH
 }
 
-var Health = 5
+var Health = 25
 var current_state : STATE = STATE.IDLE
 
 func _ready() -> void:
@@ -64,7 +65,7 @@ func handle_attack_state():
 	velocity = Vector3.ZERO
 	look_at(Vector3(global.player.global_position.x, global_position.y, global.player.global_position.z), Vector3.UP)
 	move_and_slide()
-	animation_player.play("attack")
+	animation_player.play("attack_2")
 	await animation_player.animation_finished
 
 	if not target_in_range():
@@ -82,7 +83,7 @@ func set_state(new_state: STATE):
 		STATE.RUN:
 			animation_player.play("run")
 		STATE.ATTACK:
-			animation_player.play("attack")
+			animation_player.play("attack_2")
 		STATE.DEATH:
 			animation_player.play("dying")
 
@@ -99,3 +100,8 @@ func Hit_Successful(Damage, _Direction:=Vector3.ZERO, _Position:= Vector3.ZERO):
 	print("Target Health: " + str(Health))
 	if Health <= 0:
 		queue_free()
+
+
+func _hit_finished():
+	if global_position.distance_to(global.player.global_position) < ATTACK_RANGE:
+		global.player.hit(Damage)

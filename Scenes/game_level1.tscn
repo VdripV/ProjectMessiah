@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bxwjpayjtdd2g" path="res://Scenes/world_objects/Spawnable_Weapons/blaster_k.tscn" id="3_mcdir"]
 [ext_resource type="PackedScene" uid="uid://7m3mdu2x8gld" path="res://Scenes/world_objects/Spawnable_Weapons/blaster_n.tscn" id="4_hwk2q"]
 [ext_resource type="PackedScene" uid="uid://3s3n5b831h7l" path="res://Scenes/world_objects/box_1.tscn" id="4_rflgi"]
+[ext_resource type="PackedScene" uid="uid://xfmso254nhm4" path="res://Scenes/world_objects/jump_booster.tscn" id="8_mcdir"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mrwnk"]
 sky_top_color = Color(0.4744972, 0.50951236, 0.77050966, 1)
@@ -65,37 +66,11 @@ navigation_mesh = SubResource("NavigationMesh_rflgi")
 [node name="enemy" parent="NavigationRegion3D" unique_id=1748185559 instance=ExtResource("3_kgl6t")]
 transform = Transform3D(-0.45877826, 0, 1.4700755, 0, 1.5399998, 0, -1.4700755, 0, -0.45877826, -18.506615, 0, -34.745415)
 
-[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=244608855]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.807186, 2.8182878, -19.219757)
-omni_range = 8.935
-omni_attenuation = 0.63
-
-[node name="OmniLight3D5" type="OmniLight3D" parent="." unique_id=1165653873]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.086716, 2.8182878, -18.753256)
-light_color = Color(8.471012e-06, 0.73971415, 0, 1)
-omni_range = 10.423346
-omni_attenuation = -0.759
-
-[node name="OmniLight3D2" type="OmniLight3D" parent="." unique_id=967833823]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.636757, 0.948164, -34.478844)
-light_color = Color(1, 0, 0, 1)
-omni_range = 14.444202
-omni_attenuation = 0.26
-
-[node name="OmniLight3D3" type="OmniLight3D" parent="." unique_id=244686809]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.358793, 0.948164, -47.511734)
-light_color = Color(1, 0, 0, 1)
-omni_range = 11.914
-omni_attenuation = 0.537
-
-[node name="OmniLight3D4" type="OmniLight3D" parent="." unique_id=48291431]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.310734, 0.948164, -34.56615)
-light_color = Color(1, 0, 0, 1)
-omni_range = 9.456
-omni_attenuation = -0.574
-
 [node name="Box1" parent="." unique_id=806593953 instance=ExtResource("4_rflgi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0121787, -14.655933)
+
+[node name="JumpBooster" parent="." unique_id=1571341624 instance=ExtResource("8_mcdir")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.203255, -0.014175534, 33.23539)
 
 [editable path="player"]
 [editable path="player/UserInterface"]
