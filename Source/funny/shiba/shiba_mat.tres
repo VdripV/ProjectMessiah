@@ -1,0 +1,17 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://b5ecqdpgwkkqn"]
+
+[ext_resource type="Texture2D" uid="uid://drsremafsf0jl" path="res://Source/funny/shiba/default_Base_Color.png" id="1_80cv7"]
+[ext_resource type="Texture2D" uid="uid://dd4friby0j8i3" path="res://Source/funny/shiba/internal_ground_ao_texture.jpeg" id="2_k1rto"]
+
+[resource]
+albedo_texture = ExtResource("1_80cv7")
+metallic_specular = 0.0
+emission = Color(0.37731296, 0.21090272, 0.3419549, 1)
+emission_energy_multiplier = 0.9
+normal_scale = -16.0
+rim_enabled = true
+rim = 0.63
+rim_tint = 0.57
+ao_enabled = true
+ao_texture = ExtResource("2_k1rto")
+heightmap_scale = 1.973

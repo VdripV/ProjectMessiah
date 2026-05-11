@@ -1,0 +1,52 @@
+class_name CrouchingPlayerState
+
+extends State
+
+@export var CROUCH_SPEED: float = 4.0
+@export var ANIMATION: AnimationPlayer
+
+@onready var CROUCH_SHAPECAST: ShapeCast3D = $"../../ShapeCast3D"
+
+var is_uncrouching: bool = false
+
+var was_moving: bool = false
+
+func enter() -> void:
+	is_uncrouching = false
+	global.player.is_crouching = true
+	ANIMATION.play("crouching", -1, CROUCH_SPEED)
+	await ANIMATION.animation_finished
+	was_moving = global.player.velocity.length() > 0
+	if was_moving:
+		global.player.footstep_crouch.play()
+
+func exit() -> void:
+	global.player.is_crouching = false
+	global.player.footstep_crouch.stop()
+	
+func update(delta: float) -> void:
+	if is_uncrouching:
+		pass
+	
+	var is_moving = global.player.velocity.length() > 0
+	if is_moving and not was_moving:
+		global.player.footstep_crouch.play()
+	elif not is_moving and was_moving:
+		global.player.footstep_crouch.stop()
+	was_moving = is_moving	
+
+	if Input.is_action_just_pressed('crouch'):
+		try_uncrouch()
+		
+func try_uncrouch():
+	if CROUCH_SHAPECAST.is_colliding():
+		return
+	
+	is_uncrouching = true
+	ANIMATION.play('crouching', -1, -CROUCH_SPEED, true)
+	await ANIMATION.animation_finished
+	
+	if global.player.velocity.length() == 0:
+		transition.emit("IdlePlayerState")
+	else:
+		transition.emit("WalkingPlayerState")
