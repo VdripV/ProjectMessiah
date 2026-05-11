@@ -7,7 +7,13 @@ signal Update_Weapon_Stack
 
 @onready var animation_player: AnimationPlayer = $FPS_Rig/AnimationPlayer
 @onready var Bullet_Point: Marker3D = $FPS_Rig/Bullet_Point
-@onready var Gun_Raycast: RayCast3D = $FPS_Rig/RayCast3D
+@onready var Gun_Raycast: RayCast3D = $FPS_Rig/RayCast3D 
+@onready var gun_sound: AudioStreamPlayer3D = $"../../../Gunshot"
+@onready var reload_sound: AudioStreamPlayer3D = $"../../../Reload"
+@onready var pickUp_sound: AudioStreamPlayer3D = $"../../../PickUP"
+@onready var drop_sound: AudioStreamPlayer3D = $"../../../Drop"
+@onready var change_sound: AudioStreamPlayer3D = $"../../../Change"
+@onready var out_of_ammo: AudioStreamPlayer3D = $"../../../OutOfAmmo"
 
 
 var Debug_Bullet = preload("res://Scenes/player/bullet_debug.tscn")
@@ -25,6 +31,10 @@ enum {NULL, HITSCAN, PROJECTILE}
 
 func _ready() -> void:
 	Initialize(Start_Weapons)
+	pickUp_sound.stream = preload("res://audio/weaponPickUp.wav")
+	drop_sound.stream = preload("res://audio/drop.wav")
+	change_sound.stream = preload("res://audio/change_Weapon.wav")
+	out_of_ammo.stream = preload("res://audio/outOfAmmo.wav")
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("weapon_up"):
@@ -37,7 +47,7 @@ func _input(event: InputEvent) -> void:
 		
 	if event.is_action_pressed("shoot"):
 		shoot()
-	
+		
 	if event.is_action_pressed("reload"):
 		reload()
 	
@@ -70,9 +80,8 @@ func Change_Weapon(weapon_name: String):
 	Current_Weapon = Weapon_List[weapon_name]
 	Next_Weapon = ""
 	enter()
-
-
-
+	change_sound.play()
+	
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == Current_Weapon.Deactivate_Anim:
 		Change_Weapon(Next_Weapon)
@@ -104,6 +113,8 @@ func reload():
 	elif !animation_player.is_playing():
 		if Current_Weapon.Reserve_Ammo != 0:
 			animation_player.play(Current_Weapon.Reload_Anim)
+			reload_sound.stream = Current_Weapon.Reload_Sounds
+			reload_sound.play()
 			var Reload_Amount = min(Current_Weapon.Magazine-Current_Weapon.Current_Ammo, Current_Weapon.Magazine, Current_Weapon.Reserve_Ammo)
 			
 			Current_Weapon.Current_Ammo = Current_Weapon.Current_Ammo + Reload_Amount
@@ -112,7 +123,7 @@ func reload():
 			emit_signal("Update_Ammo", [Current_Weapon.Current_Ammo, Current_Weapon.Reserve_Ammo])
 		else:
 			animation_player.play(Current_Weapon.Out_Of_Ammo_Anim)
-			
+			out_of_ammo.play()
 			
 func Get_Camera_Collision() -> Vector3:
 	var camera = global.player.camera
@@ -153,10 +164,14 @@ func Launch_Projectile():
 	Projectile.transform.basis = Gun_Raycast.global_transform.basis
 	Gun_Raycast.add_child(Projectile)
 	Projectile.Damage = Current_Weapon.Damage
+	gun_sound.stream = Current_Weapon.Shoot_Sounds
+	gun_sound.play()
+	
 
 
 func _on_pick_up_detection_body_entered(body: Node3D) -> void:
-	if body.Pick_Up_Ready:	
+	if body.Pick_Up_Ready:
+		print(pickUp_sound)
 		var Weapon_In_Stack = Weapon_Stack.find(body.weapon_name, 0)
 		
 		if Weapon_In_Stack == -1:
@@ -166,6 +181,7 @@ func _on_pick_up_detection_body_entered(body: Node3D) -> void:
 			Weapon_List[body.weapon_name].Reserve_Ammo = body.reserve_ammo
 			
 			emit_signal("Update_Weapon_Stack", Weapon_Stack)
+			pickUp_sound.play()	
 			exit(body.weapon_name)
 			body.queue_free()
 		else:
@@ -182,6 +198,7 @@ func drop(_name: String):
 	if Weapon_Ref != -1:
 		Weapon_Stack.pop_at(Weapon_Ref)
 		emit_signal("Update_Weapon_Stack", Weapon_Stack)
+		drop_sound.play()
 		
 		var Weapon_Dropped = Weapon_List[_name].Weapon_Drop.instantiate()
 		Weapon_Dropped.current_ammo = Weapon_List[_name].Current_Ammo

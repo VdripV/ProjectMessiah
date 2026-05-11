@@ -43,10 +43,6 @@ environment = SubResource("Environment_edxrx")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.124283, -2.3841858e-07, -8.849084)
 top_level = true
 
-[node name="FootstepPlayer" type="AudioStreamPlayer3D" parent="player" unique_id=335239116]
-
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="player/FootstepPlayer" unique_id=877383563]
-
 [node name="weapons" type="Node3D" parent="." unique_id=1762653724]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.33575, 0.33518595, -15.11762)
 

@@ -3,7 +3,7 @@ class_name DashingPlayerState
 extends State
 
 @export var ANIMATION : AnimationPlayer
-@export var DASH_SPEED : float = 20.0
+@export var DASH_SPEED : float = 50.0
 @export var DASH_DURATION : float = 0.2
 @export var DASH_COOLDOWN : float = 2.0
 

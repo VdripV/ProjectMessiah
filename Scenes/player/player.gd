@@ -23,9 +23,8 @@ var Health = 100.0
 @export var HORIZONTAL_SENS := 0.05
 @export var VERTICAL_SENS := 0.2
 
-
 @export var SPEED_SPRINT := 9.0
-@export var SPEED_DEFAULT := 7.0
+@export var SPEED_DEFAULT := 12.0
 @export var SPEED_CROUCH := 3.0
 @export var JUMP_VELOCITY := 5.0
 
@@ -66,7 +65,7 @@ func _ready() -> void:
 	footstep_sprint.stream = preload("res://audio/sprint_Grass.wav")
 	footstep_crouch.stream = preload("res://audio/crouch_Grass.wav")
 	jump_sound.stream = preload("res://audio/jump_Grass.wav")
-
+	
 func _input(event: InputEvent):
 	if Input.is_action_just_pressed("toggle_mouse"):
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -95,7 +94,6 @@ func _update_camera(delta) -> void:
 	
 	global_transform.basis = Basis.from_euler(_player_rotation)
 
-
 	_rotation_input = 0.0
 	_tilt_input = 0.0
 
@@ -119,9 +117,6 @@ func _physics_process(delta: float) -> void:
 		
 	move_and_slide()
 	_update_camera(delta)
-
-	
-
 
 func _on_jump_booster_detection_body_entered(body: Node3D) -> void:
 	if body.is_in_group("JumpBooster"):

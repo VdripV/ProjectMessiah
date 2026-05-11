@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://i84dhdjmetab"
-path.s3tc="res://.godot/imported/blue_gun_axis_fixed_Image_2.png-5d02c5f715118c4bc21198c3841e49cb.s3tc.ctex"
+uid="uid://dtuuia1udcrxw"
+path.s3tc="res://.godot/imported/low-poly_red_scifi_katana_1.jpg-8b2f3957e0f32b2f6110ae6624523889.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "c2ce3d52f45b91366ef728ba3c330b92"
+"md5": "89c691b79209e77e36f8953229471d7a"
 }
 
 [deps]
 
-source_file="res://Source/player/sci-fi/sci-fi_gun/blue_gun_axis_fixed_Image_2.png"
-dest_files=["res://.godot/imported/blue_gun_axis_fixed_Image_2.png-5d02c5f715118c4bc21198c3841e49cb.s3tc.ctex"]
+source_file="res://Source/player/scifi-katana/low-poly_red_scifi_katana_1.jpg"
+dest_files=["res://.godot/imported/low-poly_red_scifi_katana_1.jpg-8b2f3957e0f32b2f6110ae6624523889.s3tc.ctex"]
 
 [params]
 

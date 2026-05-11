@@ -17,8 +17,10 @@
 [ext_resource type="Script" uid="uid://c5wigpbxtrtix" path="res://Scripts/PlayerStateMachineScripts/jumping_player_state.gd" id="9_f1ek2"]
 [ext_resource type="Resource" uid="uid://ci7hm8251osqd" path="res://ResourceFiles/blasterK.tres" id="9_ic3d6"]
 [ext_resource type="PackedScene" uid="uid://d10ul55pilaqs" path="res://Source/Kenney Weapons/blasterK.glb" id="9_nyrd7"]
+[ext_resource type="PackedScene" uid="uid://dyen6dfdtx5vn" path="res://Source/player/scifi-katana/low-poly_red_scifi_katana.glb" id="14_dpkfr"]
 [ext_resource type="Script" uid="uid://k0uia7gamwnc" path="res://Scripts/PlayerStateMachineScripts/crouching_player_state.gd" id="15_h4iuc"]
 [ext_resource type="Script" uid="uid://bwu41iqp7hq84" path="res://Scenes/UI/HUD.gd" id="16_6vj4j"]
+[ext_resource type="Script" uid="uid://dp1foks5dw7hj" path="res://Scripts/PlayerStateMachineScripts/sliding_player_state.gd" id="21_kysaj"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f60y1"]
 radius = 0.425
@@ -936,6 +938,30 @@ tracks/11/keys = {
 "points": PackedFloat32Array(0, -0.09448145, 0.03166245, 0.033333335, -0.011170606),
 "times": PackedFloat32Array(0)
 }
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("CameraController:rotation")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("ShapeCast3D:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.5, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_fs7ks"]
 resource_name = "Sprinting"
@@ -1015,6 +1041,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_cvnsp"]
 resource_name = "crouching"
+length = 5.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1050,6 +1077,30 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, 1.67, -0.16172573), Vector3(0, 1.1252799, -0.16172573)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CameraController:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5, 3, 5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ShapeCast3D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5, 0), Vector3(0, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vgqql"]
@@ -1201,6 +1252,10 @@ libraries/ = SubResource("AnimationLibrary_spm8d")
 [node name="RayCast3D" type="RayCast3D" parent="CameraController/Camera3D/WeaponsManager/FPS_Rig" unique_id=665681898]
 target_position = Vector3(0, 0, -0.8)
 
+[node name="katana" parent="CameraController/Camera3D/WeaponsManager/FPS_Rig" unique_id=610025351 instance=ExtResource("14_dpkfr")]
+transform = Transform3D(3.821371e-16, 8.742279e-09, 0.19999996, 0.2, -8.742279e-09, 0, 8.742278e-09, 0.20000003, -8.742276e-09, 0.22412315, 1.2692289, -0.20314541)
+visible = false
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1373306180]
 libraries/ = SubResource("AnimationLibrary_vgqql")
 
@@ -1248,6 +1303,9 @@ ANIMATION = NodePath("../../AnimationPlayer")
 script = ExtResource("15_h4iuc")
 ANIMATION = NodePath("../../AnimationPlayer")
 
+[node name="SlidingPlayerState" type="Node" parent="PlayerStateMachine" unique_id=669653690]
+script = ExtResource("21_kysaj")
+
 [node name="FootstepWalk" type="AudioStreamPlayer3D" parent="." unique_id=9717411]
 bus = &"SFX"
 
@@ -1259,6 +1317,19 @@ bus = &"SFX"
 
 [node name="Jump" type="AudioStreamPlayer3D" parent="." unique_id=1956832626]
 bus = &"SFX"
+
+[node name="Gunshot" type="AudioStreamPlayer3D" parent="." unique_id=1161760739]
+bus = &"SFX"
+
+[node name="Reload" type="AudioStreamPlayer3D" parent="." unique_id=1950842974]
+
+[node name="PickUP" type="AudioStreamPlayer3D" parent="." unique_id=656097898]
+
+[node name="Drop" type="AudioStreamPlayer3D" parent="." unique_id=700403104]
+
+[node name="Change" type="AudioStreamPlayer3D" parent="." unique_id=1818460561]
+
+[node name="OutOfAmmo" type="AudioStreamPlayer3D" parent="." unique_id=1741884198]
 
 [connection signal="Update_Ammo" from="CameraController/Camera3D/WeaponsManager" to="UserInterface/CanvasLayer" method="_on_weapons_manager_update_ammo"]
 [connection signal="Update_Weapon_Stack" from="CameraController/Camera3D/WeaponsManager" to="UserInterface/CanvasLayer" method="_on_weapons_manager_update_weapon_stack"]

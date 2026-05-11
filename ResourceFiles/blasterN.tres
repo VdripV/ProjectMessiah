@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" uid="uid://chb7ydncy2n24" path="res://Scenes/player/weapon_resource.gd" id="1_ikddg"]
 [ext_resource type="PackedScene" uid="uid://bhnowwtmmhwb3" path="res://Scenes/player/bulletN.tscn" id="1_vylbr"]
+[ext_resource type="AudioStream" uid="uid://b3w4hufkib58y" path="res://audio/gunshot.wav" id="2_5lyql"]
 [ext_resource type="PackedScene" uid="uid://7m3mdu2x8gld" path="res://Scenes/world_objects/Spawnable_Weapons/blaster_n.tscn" id="2_70e5e"]
+[ext_resource type="AudioStream" uid="uid://q2rik6k5l0q2" path="res://audio/reload.wav" id="2_l7rms"]
 
 [resource]
 script = ExtResource("1_ikddg")
@@ -21,5 +23,7 @@ Damage = 1
 Type = 2
 Projectile_To_Load = ExtResource("1_vylbr")
 Projectile_Velocity = 100
+Shoot_Sounds = ExtResource("2_5lyql")
+Reload_Sounds = ExtResource("2_l7rms")
 Weapon_Drop = ExtResource("2_70e5e")
 metadata/_custom_type_script = "uid://chb7ydncy2n24"

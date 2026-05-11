@@ -33,7 +33,7 @@ func update(delta: float) -> void:
 	if Input.is_action_just_pressed("jump") and global.player.is_on_floor() and !global.player.is_crouching:
 		transition.emit("JumpingPlayerState")
 	if Input.is_action_just_pressed("crouch") and global.player.is_on_floor():
-		transition.emit("CrouchingPlayerState")
+		transition.emit("SlidingPlayerState")
 	if Input.is_action_just_pressed("sprint") and dash_state.can_dash:
 		transition.emit("DashingPlayerState")
 		

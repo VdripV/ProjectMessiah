@@ -20,5 +20,7 @@ class_name Weapon_Resource
 @export_flags("HitScan", "Projectile") var Type
 @export var Projectile_To_Load: PackedScene
 @export var Projectile_Velocity: int
+@export var Shoot_Sounds: AudioStream
+@export var Reload_Sounds: AudioStream
 
 @export var Weapon_Drop: PackedScene

@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://ci0yilfjiky1h"
-path="res://.godot/imported/blue_gun_axis_fixed.glb-a9d168abfc6ed3c8f3a285d78c5da5eb.scn"
+uid="uid://dyen6dfdtx5vn"
+path="res://.godot/imported/low-poly_red_scifi_katana.glb-6a7801d452b910a9e144f3000fbeca43.scn"
 
 [deps]
 
-source_file="res://Source/player/sci-fi/sci-fi_gun/blue_gun_axis_fixed.glb"
-dest_files=["res://.godot/imported/blue_gun_axis_fixed.glb-a9d168abfc6ed3c8f3a285d78c5da5eb.scn"]
+source_file="res://Source/player/scifi-katana/low-poly_red_scifi_katana.glb"
+dest_files=["res://.godot/imported/low-poly_red_scifi_katana.glb-6a7801d452b910a9e144f3000fbeca43.scn"]
 
 [params]
 
@@ -37,18 +37,6 @@ import_script/path=""
 materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
-_subresources={
-"meshes": {
-"blue_gun_axis_fixed_Cube_006_low_Gun_0": {
-"generate/lightmap_uv": 0,
-"generate/lods": 0,
-"generate/shadow_meshes": 0,
-"lods/normal_merge_angle": 20.0,
-"save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://Source/player/sci-fi/sci-fi_gun/blue_gun_axis_fixed.tres",
-"save_to_file/path": "uid://djq7as62ojmn7"
-}
-}
-}
+_subresources={}
 gltf/naming_version=2
 gltf/embedded_image_handling=1
